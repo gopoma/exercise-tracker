@@ -4,7 +4,9 @@ import app from "../../src/app";
 
 should();
 
-describe("GET /", () => {
+describe("GET /", function() {
+    this.timeout(6000);
+
     let response: Response;
 
     before(async () => {

@@ -5,8 +5,10 @@ import { UsersService } from "../../src/services";
 
 should();
 
-describe("POST /api/users", () => {
-    describe("Empty request", () => {
+describe("POST /api/users", function() {
+    describe("Empty request", function() {
+        this.timeout(6000);
+
         let response: Response;
 
         before(async () => {
@@ -25,7 +27,9 @@ describe("POST /api/users", () => {
         });
     });
 
-    describe("Overpopulated request", () => {
+    describe("Overpopulated request", function() {
+        this.timeout(6000);
+
         let response: Response;
 
         before(async () => {
@@ -47,7 +51,9 @@ describe("POST /api/users", () => {
         });
     });
 
-    describe("Valid request", () => {
+    describe("Valid request", function() {
+        this.timeout(6000);
+
         let response: Response;
 
         before(async () => {
@@ -62,7 +68,7 @@ describe("POST /api/users", () => {
 
         it("responds with _id and username in body", () => {
             response.body.should.have.property("_id");
-            response.body._id.should.be.a("number");
+            response.body._id.should.be.a("string");
             response.body.should.have.property("username");
             response.body.username.should.be.a("string");
             response.body.username.should.be.equal("gopoma");
@@ -76,7 +82,9 @@ describe("POST /api/users", () => {
     });
 });
 
-describe("GET /api/users", () => {
+describe("GET /api/users", function() {
+    this.timeout(6000);
+
     let response: Response;
 
     before(async () => {

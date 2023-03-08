@@ -7,8 +7,8 @@
     "start": "dotenv -e .env.production -- npx cross-env NODE_ENV=production node ./dist/src/server.js",
     "dev": "dotenv -e .env.development -- npx cross-env NODE_ENV=development npx ts-node-dev ./src/server.ts",
     "build": "tsc",
-    "migrate:mysql:dev": "dotenv -e .env.development -- npx prisma migrate dev",
-    "migrate:mysql:test": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "migrate:mongodb:dev": "dotenv -e .env.development -- npx prisma db push",
+    "migrate:mongodb:test": "dotenv -e .env.test -- npx prisma db push",
     "test": "dotenv -e .env.test -- npx cross-env NODE_ENV=test npx ts-mocha ./test/**/*.test.ts",
     "lint": "npx eslint --ignore-path .gitignore . --ext .ts",
     "lint:fix": "npm run lint -- --fix"

@@ -8,8 +8,8 @@ class UsersService {
         });
 
         return {
-            username: user.username,
-            _id: user.id
+            _id: user.id,
+            username: user.username
         };
     }
 
@@ -17,8 +17,8 @@ class UsersService {
         const users = await client.user.findMany();
 
         return users.map(user => ({
-            username: user.username,
-            _id: user.id
+            _id: user.id,
+            username: user.username
         }));
     }
 

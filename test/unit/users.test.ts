@@ -4,7 +4,9 @@ import { after } from "mocha";
 
 should();
 
-describe("UsersService", () => {
+describe("UsersService", function() {
+    this.timeout(6000);
+
     let usersServ: UsersService;
 
     before(() => {
@@ -19,7 +21,7 @@ describe("UsersService", () => {
         user.should.be.a("object");
         Object.keys(user).should.have.members(["_id", "username"]);
         user.should.have.property("_id");
-        user._id.should.be.a("number");
+        user._id.should.be.a("string");
         user.should.have.property("username");
         user.username.should.be.a("string");
         user.username.should.be.equal("gopoma");
@@ -33,7 +35,7 @@ describe("UsersService", () => {
 
         const firstUser = users[0];
         Object.keys(firstUser).should.have.members(["_id", "username"]);
-        firstUser._id.should.be.a("number");
+        firstUser._id.should.be.a("string");
         firstUser.username.should.be.a("string");
     });
 
