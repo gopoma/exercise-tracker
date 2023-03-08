@@ -9,6 +9,7 @@ import status from "http-status";
 import config from "./config";
 import { users } from "./routes";
 
+
 // Create Express server
 const app = express();
 
@@ -43,7 +44,7 @@ app.use(compression());
 
 
 app.get("/", (req, res) => {
-    return res.json({
+    return res.status(status.OK).json({
         name: "exercise-tracker",
         version: "1.0.0",
         author: "Gustavo Eduardo Ordoño Poma",
