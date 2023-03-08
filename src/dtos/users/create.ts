@@ -3,16 +3,16 @@ import { usernameDTOSchema } from "./types";
 
 export const CreateUserDTOSchema = Type.Object(
     {
-        username: usernameDTOSchema,
+        username: usernameDTOSchema
     },
     {
         additionalProperties: false,
         errorMessage: {
             additionalProperties: "do not send more/additional properties than you just have to send",
             required: {
-                username: "Provide username",
+                username: "Provide username"
             }
-        },
+        }
     }
 );
 

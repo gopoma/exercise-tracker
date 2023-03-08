@@ -16,6 +16,12 @@ function users(app: Application) {
 
         return res.status(status.CREATED).json(result);
     });
+
+    router.get("/", async (req: Request, res: Response) => {
+        const result = await usersServ.getAll();
+
+        return res.status(status.OK).json(result);
+    });
 }
 
 export default users;

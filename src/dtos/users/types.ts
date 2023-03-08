@@ -7,6 +7,6 @@ export const usernameDTOSchema = Type.String({
     errorMessage: {
         type: "username have to be a string",
         isNotEmpty: "username does not have to be empty",
-        maxLength: "username have to have at most 255 length",
+        maxLength: "username have to have at most 255 length"
     }
 });

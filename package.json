@@ -9,7 +9,9 @@
     "build": "tsc",
     "migrate:mysql:dev": "dotenv -e .env.development -- npx prisma migrate dev",
     "migrate:mysql:test": "dotenv -e .env.test -- npx prisma migrate deploy",
-    "test": "dotenv -e .env.test -- npx cross-env NODE_ENV=test npx ts-mocha ./test/**/*.test.ts"
+    "test": "dotenv -e .env.test -- npx cross-env NODE_ENV=test npx ts-mocha ./test/**/*.test.ts",
+    "lint": "npx eslint --ignore-path .gitignore . --ext .ts",
+    "lint:fix": "npm run lint -- --fix"
   },
   "keywords": [],
   "author": "gopoma",

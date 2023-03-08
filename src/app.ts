@@ -47,7 +47,7 @@ app.get("/", (req, res) => {
     return res.status(status.OK).json({
         name: "exercise-tracker",
         version: "1.0.0",
-        author: "Gustavo Eduardo Ordoño Poma",
+        author: "Gustavo Eduardo Ordoño Poma"
     });
 });
 
@@ -57,7 +57,7 @@ users(app);
 app.all("*", (req: Request, res: Response) => {
     return res.status(status.NOT_FOUND).json({
         success: false,
-        message: `Can't find [${req.method}] ${req.originalUrl} resolver on this server!`,
+        message: `Can't find [${req.method}] ${req.originalUrl} resolver on this server!`
     });
 });
 

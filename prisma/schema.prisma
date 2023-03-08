@@ -13,5 +13,5 @@ datasource db {
 
 model User {
     id Int @id @unique @default(autoincrement())
-    username String @unique @db.VarChar(255)
+    username String @db.VarChar(255)
 }

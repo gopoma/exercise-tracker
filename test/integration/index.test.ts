@@ -7,7 +7,7 @@ should();
 describe("GET /", () => {
     let response: Response;
 
-    beforeEach(async () => {
+    before(async () => {
         response = await request(app).get("/");
     });
 
@@ -19,7 +19,7 @@ describe("GET /", () => {
         response.body.should.be.deep.equal({
             name: "exercise-tracker",
             version: "1.0.0",
-            author: "Gustavo Eduardo Ordoño Poma",
+            author: "Gustavo Eduardo Ordoño Poma"
         });
     });
 });
