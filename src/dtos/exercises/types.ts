@@ -13,7 +13,7 @@ export const durationDTOSchema = Type.Number({
     exclusiveMinimum: 0,
     errorMessage: {
         type: "duration should be a number",
-        minimum: "duration should be greater than 0"
+        exclusiveMinimum: "duration should be greater than 0"
     }
 });
 
