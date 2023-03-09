@@ -4,13 +4,13 @@ import app from "../../src/app";
 
 should();
 
-describe("GET /", function() {
+describe("GET /api", function() {
     this.timeout(6000);
 
     let response: Response;
 
     before(async () => {
-        response = await request(app).get("/");
+        response = await request(app).get("/api");
     });
 
     it("responds with 200", async () => {

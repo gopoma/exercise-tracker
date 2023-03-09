@@ -5,8 +5,18 @@ export const usernameDTOSchema = Type.String({
     maxLength: 255,
     transform: ["trim"],
     errorMessage: {
-        type: "username have to be a string",
-        isNotEmpty: "username does not have to be empty",
-        maxLength: "username have to have at most 255 length"
+        type: "username should be a string",
+        isNotEmpty: "username should not be empty",
+        maxLength: "username should be at most 255 length"
+    }
+});
+
+export const _idDTOSchema = Type.String({
+    isNotEmpty: true,
+    format: "MongoId",
+    errorMessage: {
+        type: "_id should be a string",
+        isNotEmpty: "_id should not be empty",
+        format: "_id should be a valid MongoId"
     }
 });
