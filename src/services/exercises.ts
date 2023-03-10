@@ -1,15 +1,9 @@
 import { Prisma } from "@prisma/client";
 import client from "../libs/db";
 import { AddExerciseDTO, GetLogsQueryDTO } from "../dtos";
-import { normalizeDate } from "../helpers";
 
 class ExercisesService {
     async create(idUser: string, data: AddExerciseDTO) {
-        const current = new Date();
-        const currentBase = `${current.getFullYear()}-${((current.getMonth() + 1).toString().length === 1 ? "0" : "") + (current.getMonth() + 1).toString()}-${(current.getDate().toString().length === 1 ? "0" : "") + current.getDate().toString()}`;
-        const base: string = data.date || currentBase;
-        const date = normalizeDate(base);
-
         const exercise = await client.exercise.create({
             data: {
                 user: {
@@ -19,7 +13,7 @@ class ExercisesService {
                 },
                 description: data.description,
                 duration: Number.parseInt(data.duration),
-                date
+                date: data.date ? new Date(data.date) : new Date()
             },
             include: {
                 user: true
@@ -40,8 +34,8 @@ class ExercisesService {
             where: {
                 idUser,
                 date: {
-                    gte: filters.from && normalizeDate(filters.from),
-                    lte: filters.to && normalizeDate(filters.to)
+                    gte: filters.from && new Date(filters.from),
+                    lte: filters.to && new Date(filters.to)
                 }
             }
         };
