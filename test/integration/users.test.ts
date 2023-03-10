@@ -111,7 +111,7 @@ describe("Users' Endpoints", function() {
             before(async () => {
                 response = await request(app).post("/api/users/gopoma/exercises").send({
                     description: "test",
-                    duration: 60,
+                    duration: "60",
                     date: "2004-005-13"
                 });
             });
@@ -136,7 +136,7 @@ describe("Users' Endpoints", function() {
             before(async () => {
                 response = await request(app).post(`/api/users/${user._id}/exercises`).send({
                     description: "test",
-                    duration: 60,
+                    duration: "60",
                     date: "2004-05-13"
                 });
             });
@@ -164,7 +164,7 @@ describe("Users' Endpoints", function() {
             before(async () => {
                 response = await request(app).post(`/api/users/${user._id}/exercises`).send({
                     description: "test",
-                    duration: 60
+                    duration: "60"
                 });
             });
 
@@ -191,7 +191,7 @@ describe("Users' Endpoints", function() {
             before(async () => {
                 response = await request(app).post(`/api/users/${user._id}/exercises`).send({
                     description: "test",
-                    duration: 60,
+                    duration: "60",
                     date: "2023-03-10"
                 });
             });
@@ -219,7 +219,7 @@ describe("Users' Endpoints", function() {
             before(async () => {
                 response = await request(app).post(`/api/users/${user._id}/exercises`).send({
                     description: "test",
-                    duration: 60,
+                    duration: "60",
                     date: "2023-03-09"
                 });
             });

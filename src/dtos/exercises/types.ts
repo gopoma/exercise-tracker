@@ -9,11 +9,13 @@ export const descriptionDTOSchema = Type.String({
     }
 });
 
-export const durationDTOSchema = Type.Number({
-    exclusiveMinimum: 0,
+export const durationDTOSchema = Type.String({
+    isNotEmpty: true,
+    format: "integer",
+    transform: ["trim"],
     errorMessage: {
-        type: "duration should be a number",
-        exclusiveMinimum: "duration should be greater than 0"
+        isNotEmpty: "duration should not be empty",
+        format: "duration should be a valid integer greater than or equal to 0 and less than or equal to 10^16 - 1"
     }
 });
 
