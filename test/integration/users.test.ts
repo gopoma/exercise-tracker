@@ -182,6 +182,62 @@ describe("Users' Endpoints", function() {
                 });
             });
         });
+
+        describe("Valid request with date with YYYY-MM-DD format", function() {
+            this.timeout(6000);
+
+            let response: Response;
+
+            before(async () => {
+                response = await request(app).post(`/api/users/${user._id}/exercises`).send({
+                    description: "test",
+                    duration: 60,
+                    date: "2023-03-10"
+                });
+            });
+
+            it("responds with 202", () => {
+                response.statusCode.should.be.equal(202);
+            });
+
+            it("responds with an exercise's intance populated with related user data", () => {
+                response.body.should.be.deep.equal({
+                    _id: user._id,
+                    username: "gopoma",
+                    date: "Fri Mar 10 2023",
+                    duration: 60,
+                    description: "test"
+                });
+            });
+        });
+
+        describe("Valid request with date with YYYY-MM-0D format", function() {
+            this.timeout(6000);
+
+            let response: Response;
+
+            before(async () => {
+                response = await request(app).post(`/api/users/${user._id}/exercises`).send({
+                    description: "test",
+                    duration: 60,
+                    date: "2023-03-09"
+                });
+            });
+
+            it("responds with 202", () => {
+                response.statusCode.should.be.equal(202);
+            });
+
+            it("responds with an exercise's intance populated with related user data", () => {
+                response.body.should.be.deep.equal({
+                    _id: user._id,
+                    username: "gopoma",
+                    date: "Thu Mar 09 2023",
+                    duration: 60,
+                    description: "test"
+                });
+            });
+        });
     });
 
     describe("GET /api/users/:_id/logs", function() {
@@ -208,7 +264,7 @@ describe("Users' Endpoints", function() {
                     messages: [
                         "from should be a valid date following the YYYY-MM-DD format",
                         "to should be a valid date following the YYYY-MM-DD format",
-                        "limit should be a valid integer less than or equal to 10^16 - 1"
+                        "limit should be a valid integer greater than or equal to 0 and less than or equal to 10^16 - 1"
                     ]
                 });
             });
@@ -228,10 +284,13 @@ describe("Users' Endpoints", function() {
             });
 
             it("responds with template success message", () => {
-                response.body.should.be.deep.equal({
-                    success: true,
-                    message: "Retrieving logs..."
-                });
+                response.body.should.be.an("object");
+                Object.keys(response.body).should.have.members(["_id", "count", "log", "username"]);
+                response.body._id.should.be.a("string");
+                response.body._id.should.match(/^[0-9a-fA-F]{24}$/);
+                response.body.count.should.be.a("number");
+                response.body.log.should.be.an("array");
+                response.body.username.should.be.equal("gopoma");
             });
         });
     });

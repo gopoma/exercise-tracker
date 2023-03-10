@@ -5,7 +5,9 @@ import { normalizeDate } from "../helpers";
 
 class ExercisesService {
     async create(idUser: string, data: AddExerciseDTO) {
-        const base: string = data.date || new Date().toDateString();
+        const current = new Date();
+        const currentBase = `${current.getFullYear()}-${((current.getMonth() + 1).toString().length === 1 ? "0" : "") + (current.getMonth() + 1).toString()}-${(current.getDate().toString().length === 1 ? "0" : "") + current.getDate().toString()}`;
+        const base: string = data.date || currentBase;
         const date = normalizeDate(base);
 
         const exercise = await client.exercise.create({
