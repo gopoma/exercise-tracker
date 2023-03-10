@@ -72,11 +72,9 @@ class ExercisesService {
         }));
 
         return {
-            _id: user.id,
             username: user.username,
-            from: filters.from,
-            to: filters.to,
             count: logs.length,
+            _id: user.id,
             log: logs
         };
     }
