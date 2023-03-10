@@ -51,6 +51,6 @@ export const limitDTOSchema = Type.String({
     transform: ["trim"],
     errorMessage: {
         isNotEmpty: "limit should not be empty",
-        format: "limit should be a valid integer less than or equal to 10^16 - 1"
+        format: "limit should be a valid integer greater than or equal to 0 and less than or equal to 10^16 - 1"
     }
 });

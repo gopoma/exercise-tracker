@@ -39,10 +39,9 @@ function users(app: Application) {
     });
 
     router.get("/:_id/logs", validateSchema(GetLogsQueryDTOSchema, "query"), async (req: Request, res: Response) => {
-        return res.status(status.OK).json({
-            success: true,
-            message: "Retrieving logs..."
-        });
+        const result = await exercisesServ.getRelated(req.params._id, req.query);
+
+        return res.status(status.OK).json(result);
     });
 }
 

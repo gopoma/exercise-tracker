@@ -1,11 +1,12 @@
+import { Prisma } from "@prisma/client";
 import client from "../libs/db";
-import { AddExerciseDTO } from "../dtos";
+import { AddExerciseDTO, GetLogsQueryDTO } from "../dtos";
+import { normalizeDate } from "../helpers";
 
 class ExercisesService {
     async create(idUser: string, data: AddExerciseDTO) {
-        const base = data.date ? new Date(data.date) : new Date();
-        const normalizer = data.date ? 1 : 0;
-        const date = new Date(base.getFullYear(), base.getMonth(), base.getDate() + normalizer);
+        const base: string = data.date || new Date().toDateString();
+        const date = normalizeDate(base);
 
         const exercise = await client.exercise.create({
             data: {
@@ -28,6 +29,58 @@ class ExercisesService {
             duration: exercise.duration,
             date: exercise.date.toDateString(),
             _id: exercise.user.id
+        };
+    }
+
+    async getRelated(idUser: string, filters: GetLogsQueryDTO) {
+        let query: Prisma.ExerciseFindManyArgs = {
+            where: {
+                idUser,
+                date: {
+                    gte: filters.from && normalizeDate(filters.from),
+                    lte: filters.to && normalizeDate(filters.to)
+                }
+            }
+        };
+
+        if(filters.limit && Number.parseInt(filters.limit) !== 0) {
+            query = {
+                ...query,
+                take: Number.parseInt(filters.limit)
+            };
+        }
+
+        const user = await client.user.findUnique({
+            where: {
+                id: idUser
+            }
+        });
+
+        if(!user) {
+            return {};
+        }
+
+        const exercises = await client.exercise.findMany({
+            ...query,
+            select: {
+                description: true,
+                duration: true,
+                date: true
+            }
+        } as Prisma.ExerciseFindManyArgs);
+
+        const logs = exercises.map(exercise => ({
+            ...exercise,
+            date: exercise.date.toDateString()
+        }));
+
+        return {
+            _id: user.id,
+            username: user.username,
+            from: filters.from,
+            to: filters.to,
+            count: logs.length,
+            log: logs
         };
     }
 
