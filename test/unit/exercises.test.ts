@@ -23,7 +23,7 @@ describe("ExercisesService", function() {
     it("All necesary properties sent, should create an exercise", async () => {
         const exercise = await exercisesServ.create(user._id, {
             description: "test",
-            duration: 60,
+            duration: "60",
             date: "2004-05-13"
         });
 
@@ -40,7 +40,7 @@ describe("ExercisesService", function() {
     it("date not sent, should create an exercise", async () => {
         const exercise = await exercisesServ.create(user._id, {
             description: "test",
-            duration: 60
+            duration: "60"
         });
 
         exercise.should.be.an("object");

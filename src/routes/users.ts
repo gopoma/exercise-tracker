@@ -33,11 +33,7 @@ function users(app: Application) {
     });
 
     router.post("/:_id/exercises", validateSchema(AddExerciseParamsDTOSchema, "params"), validateSchema(AddExerciseDTOSchema), async (req: Request, res: Response) => {
-        const result = await exercisesServ.create(req.params._id, {
-            description: req.body.description,
-            duration: Number.parseInt(req.body.duration),
-            date: req.body.date
-        });
+        const result = await exercisesServ.create(req.params._id, req.body);
 
         return res.status(status.ACCEPTED).json(result);
     });

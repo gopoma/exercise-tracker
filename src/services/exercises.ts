@@ -17,7 +17,8 @@ class ExercisesService {
                         id: idUser
                     }
                 },
-                ...data,
+                description: data.description,
+                duration: Number.parseInt(data.duration),
                 date
             },
             include: {
