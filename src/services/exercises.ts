@@ -13,7 +13,7 @@ class ExercisesService {
                 },
                 description: data.description,
                 duration: Number.parseInt(data.duration),
-                date: data.date ? new Date(data.date) : new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+                date: data.date ? new Date(data.date) : new Date()
             },
             include: {
                 user: true
