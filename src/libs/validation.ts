@@ -27,6 +27,7 @@ addFormats(ajv, ["date", "email", "uri"])
     .addFormat("identificacion", /^[0-9]{8}$/)
     .addFormat("telefono", /^[0-9]{9}$/)
     .addFormat("password", /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/)
+    .addFormat("integer", /^[0-9]{1,15}$/)
     .addFormat("MongoId", /^[0-9a-fA-F]{24}$/);
 
 

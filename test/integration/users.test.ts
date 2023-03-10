@@ -6,6 +6,9 @@ import { UsersService, ExercisesService } from "../../src/services";
 should();
 
 describe("Users' Endpoints", function() {
+    // eslint-disable-next-line
+    let user: any;
+
     describe("POST /api/users", function() {
         describe("Empty request", function() {
             this.timeout(6000);
@@ -73,6 +76,8 @@ describe("Users' Endpoints", function() {
                 response.body.should.have.property("username");
                 response.body.username.should.be.a("string");
                 response.body.username.should.be.equal("gopoma");
+
+                user = response.body;
             });
         });
     });
@@ -97,14 +102,6 @@ describe("Users' Endpoints", function() {
     });
 
     describe("POST /api/users/:_id/exercises", function() {
-        // eslint-disable-next-line
-        let user: any;
-
-        before(async () => {
-            const usersServ = new UsersService();
-            const users = await usersServ.getAll();
-            user = users[0];
-        });
 
         describe("Request with invalid MongoId", function() {
             this.timeout(6000);
@@ -182,6 +179,58 @@ describe("Users' Endpoints", function() {
                     date: new Date().toDateString(),
                     duration: 60,
                     description: "test"
+                });
+            });
+        });
+    });
+
+    describe("GET /api/users/:_id/logs", function() {
+        describe("Request with invalid formats", function() {
+            this.timeout(6000);
+
+            let response: Response;
+
+            before(async () => {
+                response = await request(app).get(`/api/users/${user._id}/logs`).query({
+                    from: "13 de mayo de 2004",
+                    to: "13 de mayo de 2020",
+                    limit: "Some number"
+                });
+            });
+
+            it("responds with 400", () => {
+                response.statusCode.should.be.equal(400);
+            });
+
+            it("responds with an error response in body", () => {
+                response.body.should.be.deep.equal({
+                    success: false,
+                    messages: [
+                        "from should be a valid date following the YYYY-MM-DD format",
+                        "to should be a valid date following the YYYY-MM-DD format",
+                        "limit should be a valid integer less than or equal to 10^16 - 1"
+                    ]
+                });
+            });
+        });
+
+        describe("Request without query params", function() {
+            this.timeout(6000);
+
+            let response: Response;
+
+            before(async () => {
+                response = await request(app).get(`/api/users/${user._id}/logs`);
+            });
+
+            it("responds with 200", () => {
+                response.statusCode.should.be.equal(200);
+            });
+
+            it("responds with template success message", () => {
+                response.body.should.be.deep.equal({
+                    success: true,
+                    message: "Retrieving logs..."
                 });
             });
         });

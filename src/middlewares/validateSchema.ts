@@ -4,7 +4,7 @@ import ajv from "../libs/validation";
 import status from "http-status";
 
 
-type TargetOptions = "body" | "params";
+type TargetOptions = "body" | "params" | "query";
 
 function validateSchema(schema: Schema, target: TargetOptions = "body") {
     return (req: Request, res: Response, next: NextFunction) => {
@@ -17,6 +17,9 @@ function validateSchema(schema: Schema, target: TargetOptions = "body") {
                 break;
             case "params":
                 requestTarget = req.params;
+                break;
+            case "query":
+                requestTarget = req.query;
                 break;
             default:
                 throw new Error("introduced target is not valid!");

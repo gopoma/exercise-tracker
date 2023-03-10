@@ -26,3 +26,31 @@ export const dateDTOSchema = Type.String({
         format: "date should be a valid date following the YYYY-MM-DD format"
     }
 });
+
+export const fromDTOSchema = Type.String({
+    isNotEmpty: true,
+    format: "date",
+    errorMessage: {
+        isNotEmpty: "date should not be empty",
+        format: "from should be a valid date following the YYYY-MM-DD format"
+    }
+});
+
+export const toDTOSchema = Type.String({
+    isNotEmpty: true,
+    format: "date",
+    errorMessage: {
+        isNotEmpty: "date should not be empty",
+        format: "to should be a valid date following the YYYY-MM-DD format"
+    }
+});
+
+export const limitDTOSchema = Type.String({
+    isNotEmpty: true,
+    format: "integer",
+    transform: ["trim"],
+    errorMessage: {
+        isNotEmpty: "limit should not be empty",
+        format: "limit should be a valid integer less than or equal to 10^16 - 1"
+    }
+});

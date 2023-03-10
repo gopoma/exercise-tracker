@@ -7,7 +7,8 @@ import { validateSchema } from "../middlewares";
 import {
     CreateUserDTOSchema,
     AddExerciseParamsDTOSchema,
-    AddExerciseDTOSchema
+    AddExerciseDTOSchema,
+    GetLogsQueryDTOSchema
 } from "../dtos";
 import status from "http-status";
 
@@ -35,6 +36,13 @@ function users(app: Application) {
         const result = await exercisesServ.create(req.params._id, req.body);
 
         return res.status(status.ACCEPTED).json(result);
+    });
+
+    router.get("/:_id/logs", validateSchema(GetLogsQueryDTOSchema, "query"), async (req: Request, res: Response) => {
+        return res.status(status.OK).json({
+            success: true,
+            message: "Retrieving logs..."
+        });
     });
 }
 
