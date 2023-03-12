@@ -28,7 +28,15 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Set security HTTP headers
-app.use(helmet());
+app.use(helmet({
+    crossOriginEmbedderPolicy: false
+}));
+app.use(helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+        "img-src": ["'self'", "https: data:"]
+    }
+}));
 
 // Limit requests from same API
 const limiter = rateLimit({

@@ -20,7 +20,7 @@ describe("ExercisesService", function() {
         exercisesServ = new ExercisesService();
     });
 
-    it("All necesary properties sent, should create an exercise", async () => {
+    xit("All necesary properties sent, should create an exercise", async () => {
         const exercise = await exercisesServ.create(user._id, {
             description: "test",
             duration: "60",

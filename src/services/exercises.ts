@@ -4,6 +4,16 @@ import { AddExerciseDTO, GetLogsQueryDTO } from "../dtos";
 
 class ExercisesService {
     async create(idUser: string, data: AddExerciseDTO) {
+        const user = await client.user.findUnique({
+            where: {
+                id: idUser
+            }
+        });
+
+        if(!user) {
+            return {};
+        }
+
         const exercise = await client.exercise.create({
             data: {
                 user: {
